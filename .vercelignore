@@ -1,8 +1,6 @@
 .git
-.gitignore
 .env
 datasets/
-frontend/
 node_modules/
 __pycache__/
 *.pyc
