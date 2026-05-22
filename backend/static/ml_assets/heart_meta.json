@@ -1,0 +1,69 @@
+{
+  "features": [
+    "Age",
+    "Sex",
+    "ChestPainType",
+    "RestingBP",
+    "Cholesterol",
+    "FastingBS",
+    "RestingECG",
+    "MaxHR",
+    "ExerciseAngina",
+    "Oldpeak",
+    "ST_Slope",
+    "age_maxhr",
+    "oldpeak_restingbp",
+    "restingbp_chol",
+    "maxhr_sq",
+    "oldpeak_sq",
+    "chol_zero"
+  ],
+  "base_features": [
+    "Age",
+    "Sex",
+    "ChestPainType",
+    "RestingBP",
+    "Cholesterol",
+    "FastingBS",
+    "RestingECG",
+    "MaxHR",
+    "ExerciseAngina",
+    "Oldpeak",
+    "ST_Slope"
+  ],
+  "engineered_features": [
+    "age_maxhr",
+    "oldpeak_restingbp",
+    "restingbp_chol",
+    "maxhr_sq",
+    "oldpeak_sq",
+    "chol_zero"
+  ],
+  "categorical_mappings": {
+    "Sex": {
+      "F": 0,
+      "M": 1
+    },
+    "ChestPainType": {
+      "ASY": 0,
+      "ATA": 1,
+      "NAP": 2,
+      "TA": 3
+    },
+    "RestingECG": {
+      "LVH": 0,
+      "Normal": 1,
+      "ST": 2
+    },
+    "ExerciseAngina": {
+      "N": 0,
+      "Y": 1
+    },
+    "ST_Slope": {
+      "Down": 0,
+      "Flat": 1,
+      "Up": 2
+    }
+  },
+  "best_threshold": 0.44000000000000006
+}
