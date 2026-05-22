@@ -202,6 +202,55 @@ App opens at `http://localhost:5173`.
 
 ---
 
+## Deployment (Vercel)
+
+The backend can be deployed to Vercel as a serverless Python function.
+
+### Prerequisites
+
+- [Vercel CLI](https://vercel.com/docs/cli) installed (`npm i -g vercel`)
+- A [Vercel account](https://vercel.com)
+
+### Configuration
+
+The project includes the necessary files for Vercel deployment:
+
+| File | Purpose |
+|------|---------|
+| `api/index.py` | Flask entrypoint — creates the app via `create_app()` |
+| `vercel.json` | Routes all requests (`/*`) to the serverless function |
+| `.vercelignore` | Excludes `frontend/`, `datasets/`, `.env`, and other unnecessary files |
+
+### Deploy
+
+```bash
+# Login to Vercel
+vercel login
+
+# Deploy from the project root
+vercel
+
+# For production
+vercel --prod
+```
+
+### Important Notes
+
+1. **Database**: The default SQLite database does **not persist** on Vercel (ephemeral filesystem). For a persistent database, set the `DATABASE_URL` environment variable in the Vercel dashboard to a PostgreSQL connection string.
+
+2. **Secret Key**: Set a secure `SECRET_KEY` environment variable in the Vercel dashboard. A random key is generated on each deploy if not set.
+
+3. **Function Size**: TensorFlow + librosa + parselmouth is a large bundle. Vercel Hobby plan has a 50 MB serverless function limit — the combined Python dependencies may exceed this. Options:
+   - Upgrade to Vercel Pro (250 MB limit)
+   - Deploy the backend on [Railway](https://railway.app) or [Render](https://render.com) instead, and keep only the frontend on Vercel
+   - Use a lightweight ONNX inference runtime instead of full TensorFlow
+
+4. **CORS**: In production (Vercel), CORS is set to allow all origins (`*`). Restrict this to your frontend domain in `backend/config.py` if needed.
+
+5. **File Uploads**: Uploaded audio files are stored in `/tmp/uploads` and are ephemeral — they are lost after the function cold-starts.
+
+---
+
 ## API Reference
 
 ### Authentication
