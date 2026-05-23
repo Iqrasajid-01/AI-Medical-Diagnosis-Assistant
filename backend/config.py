@@ -9,6 +9,7 @@ BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BACKEND_DIR, '.env'))
 
 ON_VERCEL = os.environ.get('VERCEL', '') == '1'
+ON_HUGGINGFACE = os.environ.get('SPACE_ID', '') != ''
 
 
 class Config:
@@ -48,10 +49,14 @@ class Config:
     # Datasets
     DATASETS_DIR = os.path.join(BACKEND_DIR, '..', 'datasets')
 
-    # CORS — permissive on Vercel (frontend on *.vercel.app),
-    # locked to localhost in development
+    # CORS — permissive on Vercel or Hugging Face,
+    # locked in development
     CORS_ORIGINS = (
         ['*']
-        if ON_VERCEL
-        else ['http://localhost:5173', 'http://127.0.0.1:5173']
+        if ON_VERCEL or ON_HUGGINGFACE
+        else [
+            'http://localhost:5173',
+            'http://127.0.0.1:5173',
+            'https://ai-medical-diagnosis-assistant.vercel.app',
+        ]
     )
